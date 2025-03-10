@@ -18,7 +18,7 @@ const resend = new Resend(resendApiKey)
 export async function sendEmail(formData: ContactFormValues) {
   try {
     const { data, error } = await resend.emails.send({
-      from: `Kivens Audio <${emailFrom}>`,
+      from: `Rolan2 Audio <${emailFrom}>`,
       to: [`${emailTo}`],
       subject: `Nueva solicitud de evento - ${formData.name}`,
       react: ContactTemplate(formData) as ReactElement,

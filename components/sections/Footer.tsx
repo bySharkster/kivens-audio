@@ -2,13 +2,13 @@ import React from 'react'
 
 export const Footer = () => {
   return (
-    <footer className="bg-black py-12">
+    <footer className="py-12 bg-background text-foreground">
       <div className="max-w-[1440px] mx-auto px-6">
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        <div className="grid gap-8 mb-8 md:grid-cols-3">
           <div>
-            <h4 className="text-xl font-bold mb-4">Enlaces Rápidos</h4>
+            <h4 className="mb-4 text-xl font-bold">Enlaces Rápidos</h4>
             <div className="space-y-2">
-              {["Sobre Nosotros", "Servicios", "Testimonios"].map(
+              {["Sobre Nosotros", "Servicios", "Testimonios", "Contacto"].map(
                 (link) => (
                   <a
                     key={link}
@@ -22,7 +22,7 @@ export const Footer = () => {
             </div>
           </div>
           <div>
-            <h4 className="text-xl font-bold mb-4">Servicios</h4>
+            <h4 className="mb-4 text-xl font-bold">Servicios</h4>
             <div className="space-y-2">
               {[
                 "DJ para Bodas",
@@ -41,7 +41,7 @@ export const Footer = () => {
             </div>
           </div>
           <div>
-            <h4 className="text-xl font-bold mb-4">Legal</h4>
+            <h4 className="mb-4 text-xl font-bold">Legal</h4>
             <div className="space-y-2">
               {["Política de Privacidad", "Términos de Servicio", "Política de Cookies"].map(
                 (item) => (
@@ -57,7 +57,7 @@ export const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
+        <div className="pt-8 text-sm text-center text-gray-400 border-t border-gray-800">
           2025 Rolan2 Audio. Todos los derechos reservados.
         </div>
       </div>
