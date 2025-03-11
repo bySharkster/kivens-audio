@@ -14,16 +14,8 @@ import type { ContactFormValues } from '@/types/schema.zod'
 export const ContactTemplate = ({
   name,
   email,
-  eventType,
-  date,
   message,
 }: ContactFormValues) => {
-  const eventTypes = {
-    wedding: 'Boda',
-    corporate: 'Evento Corporativo',
-    birthday: 'Fiesta de Cumpleaños',
-    other: 'Otro',
-  } as const
 
   return (
     <Html>
@@ -40,17 +32,6 @@ export const ContactTemplate = ({
             </Text>
             <Text style={text}>
               <strong>Email:</strong> {email}
-            </Text>
-            <Text style={text}>
-              <strong>Tipo de Evento:</strong> {eventTypes[eventType]}
-            </Text>
-            <Text style={text}>
-              <strong>Fecha:</strong> {new Date(date).toLocaleDateString('es-ES', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
             </Text>
             <Hr style={hr} />
             <Text style={text}>
