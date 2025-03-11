@@ -5,8 +5,16 @@ export interface Testimonial {
     event: string
   }
 
-  export interface Service {
-    icon: string
-    title: string
-    description: string
-  }
+export interface Product {
+  id: number
+  name: string
+  description: string
+  price: number
+  image: string
+}
+
+export interface ProductCategories {
+  cakes: Product[]
+  donuts: Product[]
+  coffee: Product[]
+}

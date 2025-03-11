@@ -1,82 +1,54 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, } from "react";
 import { Button } from "@/components/ui/button";
+import { siteConfig } from "@/config/site";
 import Link from "next/link";
 
-const menuItems = ["Inicio", "Servicios", "Testimonios", "Contacto"];
+const menuItems = ['Menú', 'Nosotros', 'Eventos'];
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/90 backdrop-blur-sm text-foreground" : "bg-background/5 backdrop-blur-sm text-foreground-alt"
-      }`}
-    >
-      <div className="max-w-[1440px] mx-auto px-6 h-20 flex items-center justify-between">
-        <div className="text-2xl font-bold">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-            Rolan2 Audio
-          </span>
-        </div>
-
-        <div className="hidden gap-8 items-center md:flex">
-          {menuItems.map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="transition-colors cursor-pointer text-primary hover:text-primary-hover"
-            >
-              {item}
-            </a>
-          ))}
-        <Button asChild className="!rounded-button whitespace-nowrap text-lg px-8 py-6 bg-primary hover:bg-primary-hover">
-          <Link href="#contacto">Reservar Ahora</Link>
-        </Button>
-        </div>
-
-        <Button
-          className="text-2xl md:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle Menu"
-        >
-          ☰
+    <header className="fixed top-0 z-50 w-full backdrop-blur-md bg-white/80">
+    <div className="container flex justify-between items-center px-4 mx-auto h-20">
+      <div className="flex gap-12 items-center">
+        <Link className="text-2xl font-bold text-[#5c3444] cursor-pointer" href="#">{siteConfig.business.name}</Link>
+        <nav className="hidden lg:block">
+          <ul className="flex space-x-8">
+            {menuItems.map((item) => (
+              <a key={item} href={`#${item === 'Menú' ? 'menu' : item.toLowerCase()}`} className="text-[#5c3444] hover:text-[#ee9ca7] transition-colors cursor-pointer text-sm font-medium whitespace-nowrap">
+                {item}
+              </a>
+            ))}
+          </ul>
+        </nav>
+      </div>
+      <div className="hidden gap-6 items-center lg:flex">
+        
+        <Button className="bg-[#5c3444] text-white hover:bg-[#5c3444]/90 !rounded-button">
+          Ordenar en Línea
         </Button>
       </div>
-
-      <div
-        className={`md:hidden transition-all duration-300 ${
-          isMenuOpen ? "max-h-64" : "max-h-0"
-        } overflow-hidden bg-background/90 backdrop-blur-sm`}
+      <Button
+        className="lg:hidden text-[#5c3444] cursor-pointer"
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
-        {menuItems.map((item) => (
-          <a
-            key={item}
-            href={`#${item.toLowerCase()}`}
-            className="block px-6 py-3 cursor-pointer hover:bg-primary/20"
-            onClick={() => setIsMenuOpen(false)}
-          >
+        <i className="text-xl fas fa-bars"/>
+      </Button>
+    </div>
+    <nav className={`lg:hidden ${isMenuOpen ? 'block' : 'hidden'} absolute top-20 left-0 w-full bg-white/95 backdrop-blur-md border-t border-gray-100`}>
+      <ul className="flex flex-col p-4">
+        {['Menú', 'Nosotros', 'Ubicaciones', 'Eventos', 'Ordenar en Línea'].map((item) => (
+          <li key={item} className="py-3 text-[#5c3444] hover:text-[#ee9ca7] transition-colors cursor-pointer text-sm font-medium border-b border-gray-100 last:border-none">
             {item}
-          </a>
+          </li>
         ))}
-        <div className="px-6 py-3">
-          <Button className="w-full text-white rounded-button bg-primary hover:bg-primary-hover">
-            Reservar Ahora
-          </Button>
-        </div>
-      </div>
+      </ul>
     </nav>
+  </header>
+  
+
   );
 }

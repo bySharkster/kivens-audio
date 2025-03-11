@@ -1,16 +1,17 @@
 "use client"
 
 import { Input } from '../ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { Textarea } from '../ui/textarea'
 import { Button } from '../ui/button'
 import { toast } from 'sonner'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { cn } from '@/lib/utils'
 import { sendEmail } from '@/app/actions/send-email'
 import { contactFormSchema, type ContactFormValues } from '@/types/schema.zod'
 import { useState } from 'react'
+import { siteConfig } from '@/config/site'
+import Link from 'next/link'
+import { Label } from '../ui/label'
 
 export const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -18,8 +19,6 @@ export const ContactSection = () => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
-    trigger,
     reset
   } = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema)
@@ -32,7 +31,7 @@ export const ContactSection = () => {
       
       if (result.success) {
         toast.success("Mensaje enviado correctamente")
-        reset() // Reset form after successful submission
+        reset()
       } else {
         toast.error("Error al enviar el mensaje. Por favor intente nuevamente.")
       }
@@ -44,139 +43,89 @@ export const ContactSection = () => {
   }
 
   return (
-    <section id="contacto" className="py-20 bg-[#1E1E3F]">
-      <div className="max-w-[1440px] mx-auto px-6">
-        <h2 className="mb-16 text-4xl font-bold text-center">Contáctanos</h2>
-        <div className="grid gap-12 md:grid-cols-2">
-          {/* Left Side Content */}
-          <div>
-            <h3 className="mb-6 text-2xl font-bold">Reserva Tu Evento</h3>
-            {/* Form */}
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="space-y-4">
-                <div>
-                  <Input
-                    type="text"
-                    {...register('name')}
-                    placeholder="Tu Nombre"
-                    className={cn(
-                      "bg-background/50 border-none text-foreground",
-                      errors.name && "border-red-500"
-                    )}
-                    disabled={isSubmitting}
-                  />
-                  {errors.name && (
-                    <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Input
-                    type="email"
-                    {...register('email')}
-                    placeholder="Dirección de Correo Electrónico"
-                    className={cn(
-                      "bg-background/50 border-none text-foreground",
-                      errors.email && "border-red-500"
-                    )}
-                    disabled={isSubmitting}
-                  />
-                  {errors.email && (
-                    <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Select 
-                    onValueChange={(value) => {
-                      setValue('eventType', value as ContactFormValues['eventType'])
-                      trigger('eventType')
-                    }}
-                    disabled={isSubmitting}
-                  >
-                    <SelectTrigger className={cn(
-                      "bg-background/50 border-none text-foreground",
-                      errors.eventType && "border-red-500"
-                    )}>
-                      <SelectValue placeholder="Tipo de Evento" />
-                    </SelectTrigger>
-                    <SelectContent className="text-foreground bg-background">
-                      <SelectItem value="wedding">Boda</SelectItem>
-                      <SelectItem value="corporate">Evento Corporativo</SelectItem>
-                      <SelectItem value="birthday">Fiesta de Cumpleaños</SelectItem>
-                      <SelectItem value="other">Otro</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  {errors.eventType && (
-                    <p className="mt-1 text-sm text-red-500">{errors.eventType.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Input
-                    type="date"
-                    {...register('date')}
-                    className={cn(
-                      "bg-background/50 border-none text-foreground",
-                      errors.date && "border-red-500"
-                    )}
-                    disabled={isSubmitting}
-                  />
-                  {errors.date && (
-                    <p className="mt-1 text-sm text-red-500">{errors.date.message}</p>
-                  )}
-                </div>
-
-                <div>
-                  <Textarea
-                    {...register('message')}
-                    placeholder="Cuéntanos sobre tu evento"
-                    className={cn(
-                      "bg-background/50 border-none text-foreground",
-                      errors.message && "border-red-500"
-                    )}
-                    disabled={isSubmitting}
-                  />
-                  {errors.message && (
-                    <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>
-                  )}
-                </div>
-
-                <Button
-                  type="submit"
-                  className="w-full !rounded-button whitespace-nowrap bg-primary hover:bg-primary/80"
+    <section id="contacto" className="py-20 bg-white">
+      <div className="container px-4 mx-auto">
+        <h2 className="mb-12 text-4xl text-center font-great-vibes text-primary">Contáctanos</h2>
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="name">Nombre</Label>
+                <Input
+                  id="name"
+                  {...register('name')}
+                  placeholder="Tu nombre"
+                  className="border-primary"
                   disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
-                </Button>
-              </div>
-            </form>
-          </div>
-          {/* Right Side Content */}
-          <div>
-            <h3 className="mb-6 text-2xl font-bold">Información de Contacto</h3>
-            <div className="space-y-4">
-             
-              <p>
-                <i className="mr-3 fas fa-phone" /> +1 (939) 415-7217
-              </p>
-              <p>
-                <i className="mr-3 fas fa-clock" />Disponible 24/7
-              </p>
-            {/* Social Icons, todo: social medias */}
-              {/* <div className="flex gap-4 mt-8">
-                {["facebook", "instagram", "twitter", "youtube"].map(
-                  (social) => (
-                    <a
-                      key={social}
-                      href={`#${social}`}
-                      className="text-2xl hover:text-[#FF6EC7] transition-colors cursor-pointer"
-                    >
-                      <i className={`fab fa-${social}`} />
-                    </a>
-                  ),
+                />
+                {errors.name && (
+                  <p className="text-sm text-red-500">{errors.name.message}</p>
                 )}
-              </div> */}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email">Correo electrónico</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  {...register('email')}
+                  placeholder="Tu correo electrónico"
+                  className="border-primary"
+                  disabled={isSubmitting}
+                />
+                {errors.email && (
+                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="message">Mensaje</Label>
+                <Textarea
+                  id="message"
+                  {...register('message')}
+                  placeholder="Tu mensaje"
+                  className="border-primary"
+                  disabled={isSubmitting}
+                />
+                {errors.message && (
+                  <p className="text-sm text-red-500">{errors.message.message}</p>
+                )}
+              </div>
+
+              <Button
+                type="submit"
+                className="w-full bg-primary hover:bg-primary/90 text-background !rounded-button"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
+              </Button>
+            </div>
+          </form>
+
+          <div className="space-y-6">
+            <div className="p-6 rounded-lg bg-tertiary">
+              <h3 className="mb-4 text-xl font-semibold text-primary">Cerca de ti</h3>
+              <p className="text-primary">
+                {siteConfig.business.address}
+              </p>
+              <div className="mt-4">
+                <p className="text-primary">
+                  <strong>Horario:</strong><br />
+                  Lun-Sáb: 7:00 AM - 8:00 PM<br />
+                  Dom: 8:00 AM - 6:00 PM
+                </p>
+              </div>
+              <div className="flex mt-4 space-x-4">
+                <Link href={`${siteConfig.business.socialMedia.facebook}`} target="_blank" rel="noopener noreferrer">
+                  <i className="text-xl transition-colors fab fa-facebook text-primary hover:text-primary/80"/>
+                </Link>
+                <Link href={`https://instagram.com/${siteConfig.business.socialMedia.instagram}`} target="_blank" rel="noopener noreferrer">
+                  <i className="text-xl transition-colors fab fa-instagram text-primary hover:text-primary/80"/>
+                </Link>
+                <Link href={`${siteConfig.business.socialMedia.whatsapp}`} target="_blank" rel="noopener noreferrer">
+                  <i className="text-xl transition-colors fab fa-whatsapp text-primary hover:text-primary/80"/>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
