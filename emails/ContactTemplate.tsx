@@ -10,13 +10,15 @@ import {
   Text,
 } from '@react-email/components'
 import type { ContactFormValues } from '@/types/schema.zod'
+import { siteConfig } from '@/config/site'
 
 export const ContactTemplate = ({
   name,
   email,
+  phone,
+  event,
   message,
 }: ContactFormValues) => {
-
   return (
     <Html>
       <Head />
@@ -24,14 +26,20 @@ export const ContactTemplate = ({
       <Body style={main}>
         <Container style={container}>
           <Heading style={heading}>
-            Nueva Solicitud de Evento - Kivens Audio
+            Nueva Solicitud de Evento - {siteConfig.business.name}
           </Heading>
           <Section style={section}>
             <Text style={text}>
               <strong>Nombre:</strong> {name}
             </Text>
             <Text style={text}>
+              <strong>Teléfono:</strong> {phone}
+            </Text>
+            <Text style={text}>
               <strong>Email:</strong> {email}
+            </Text>
+            <Text style={text}>
+              <strong>Tipo de Evento:</strong> {event}
             </Text>
             <Hr style={hr} />
             <Text style={text}>
@@ -41,7 +49,7 @@ export const ContactTemplate = ({
           </Section>
           <Hr style={hr} />
           <Text style={footer}>
-            Este mensaje fue enviado desde el formulario de contacto de Kivens Audio
+            Este mensaje fue enviado desde el formulario de contacto de {siteConfig.business.name}
           </Text>
         </Container>
       </Body>
@@ -50,8 +58,8 @@ export const ContactTemplate = ({
 }
 
 const main = {
-  backgroundColor: '#1E1E3F',
-  color: '#ffffff',
+  backgroundColor: '#f8f6f2', // Brand background color
+  color: '#352f36',
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
 }
@@ -66,21 +74,23 @@ const heading = {
   fontSize: '32px',
   lineHeight: '1.3',
   fontWeight: '700',
-  color: '#8A2BE2',
+  color: '#c84c3c', // Primary brand color
   textAlign: 'center' as const,
 }
 
 const section = {
   padding: '24px',
-  backgroundColor: 'rgba(18, 18, 18, 0.5)',
+  backgroundColor: '#ffffff',
   borderRadius: '12px',
   marginTop: '24px',
+  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
 }
 
 const text = {
   fontSize: '16px',
   lineHeight: '24px',
   margin: '12px 0',
+  color: '#352f36',
 }
 
 const messageText = {
@@ -88,18 +98,19 @@ const messageText = {
   lineHeight: '24px',
   margin: '12px 0',
   padding: '12px',
-  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+  backgroundColor: '#f8f6f2',
   borderRadius: '6px',
+  color: '#352f36',
 }
 
 const hr = {
-  borderColor: 'rgba(255, 255, 255, 0.2)',
+  borderColor: '#e0d4bc',
   margin: '20px 0',
 }
 
 const footer = {
   fontSize: '14px',
-  color: 'rgba(255, 255, 255, 0.7)',
+  color: '#5c3444',
   textAlign: 'center' as const,
   marginTop: '24px',
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button } from '../ui/button'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export const HeroSection = () => {
   return (
@@ -19,11 +20,11 @@ export const HeroSection = () => {
             Experimenta la perfecta mezcla de artesanía tradicional e innovación moderna en cada creación hecha a mano.
           </p>
           <div className="flex gap-4">
-            <Button className="bg-primary text-background hover:bg-primary/90 text-lg px-8 py-6 !rounded-button">
-              Explorar Menú
+            <Button className="bg-primary text-background hover:bg-primary/90 text-lg px-8 py-6 !rounded-button" asChild>
+              <Link href="/order">Explorar Menú</Link>
             </Button>
-            <Button className="bg-background/20 backdrop-blur-sm text-primary hover:bg-background/30 text-lg px-8 py-6 !rounded-button">
-              Nuestra Historia
+            <Button className="bg-background/20 backdrop-blur-sm text-primary hover:bg-background/30 text-lg px-8 py-6 !rounded-button" asChild>
+              <Link href="#nosotros">Nuestra Historia</Link>
             </Button>
           </div>
           {/* TODO: ADD THIS MORE IN THE FUTURE */}

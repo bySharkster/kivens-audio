@@ -4,11 +4,16 @@ export const siteConfig = {
     phone: " (787) 466-2860",
     email: "ashleystephanie_am@hotmail.com",
     address: "Mayaguez, Puerto Rico",
+    businessHours: {
+      start: '09:00',
+      end: '18:00',
+    },
     socialMedia: {
       instagram: "dulce_mordida2024",
       facebook: "https://www.facebook.com/profile.php?id=100083089694450",
       whatsapp: "https://wa.me/17874662860"
-    }
+    },
+    taxRate: 0.115
   },
   contact: {
     eventTypes: [

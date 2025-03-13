@@ -2,17 +2,15 @@
 
 import type { Product, ProductCategories } from "@/types"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
-import { Button } from "../ui/button"
 import { Card } from "../ui/card"
-import { useState } from "react"
 import Image from "next/image"
+import { AddToCart } from "../btns/addToCart"
 
 interface ProductsSectionProps {
   products: ProductCategories
 }
 
 export const ProductsSection = ({ products }: ProductsSectionProps) => {
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>([])
   
   // Función auxiliar para obtener el icono basado en la categoría
   const getCategoryIcon = (category: keyof ProductCategories): string => {
@@ -54,12 +52,7 @@ export const ProductsSection = ({ products }: ProductsSectionProps) => {
                       <p className="mb-4 text-gray-600">{product.description}</p>
                       <div className="flex justify-between items-center">
                         <span className="text-lg font-semibold text-primary">${product.price}</span>
-                        <Button
-                          onClick={() => setSelectedProducts([...selectedProducts, product])}
-                          className="bg-primary hover:bg-primary/90 text-background !rounded-button"
-                        >
-                          Añadir al Pedido
-                        </Button>
+                       <AddToCart product={product} />
                       </div>
                     </div>
                   </Card>

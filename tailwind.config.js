@@ -9,23 +9,41 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        font: "var(--color-font)",
         border: "var(--color-border)",
         input: "var(--color-input)",
         ring: "var(--color-ring)",
-        background: "var(--color-background)",
-        backgroundAlt: "var(--color-background-alt)",
-        foreground: "var(--color-foreground)",
-        foregroundAlt: "var(--color-foreground-alt)",
+        background: {
+          DEFAULT: "var(--color-background)",
+          alt: "var(--color-background-alt)"},
+        foreground: {
+          DEFAULT: "var(--color-foreground)",
+          alt: "var(--color-foreground-alt)",
+        },
         primary: {
           DEFAULT: "var(--color-primary)",
-          hover: "var(--color-primary-hover)",
+          foreground: "var(--color-primary-foreground)",
         },
         secondary: {
           DEFAULT: "var(--color-secondary)",
-          hover: "var(--color-secondary-hover)",
+          foreground: "var(--color-secondary-foreground)",
         },
-        tertiary: {
-          DEFAULT: "var(--color-tertiary)",
+        accent: {
+          DEFAULT: "var(--color-accent)",
+          foreground: "var(--color-accent-foreground)",
+        },
+        success: {
+          DEFAULT: "var(--color-success)",
+        },
+        warning: {
+          DEFAULT: "var(--color-warning)",
+        },
+        info: {
+          DEFAULT: "var(--color-info)",
+        },
+        destructive: {
+          DEFAULT: "var(--color-destructive)",
+          foreground: "var(--color-destructive-foreground)",
         },
       },
       borderRadius: {
